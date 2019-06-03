@@ -12,16 +12,15 @@
     <DockPanel Name ="dockPanelMain">
         <Menu DockPanel.Dock="Top" Name="mainMenu">
             <MenuItem Header="_File" >
-                <MenuItem Header="_New" Command="{Binding NewFileCommand}"/>
                 <MenuItem Header="_Open" Command="{Binding OpenFileCommand}" CommandParameter="{Binding ElementName=tbxFileName, Path=Text}" />
-                <MenuItem Header="_Save" Command="{Binding SaveCommand}" />
                 <MenuItem Header="Save _As" Command="{Binding SaveAsCommand}" CommandParameter="{Binding ElementName=tbxFileName, Path=Text}" />
                 <MenuItem Header="E_xit" Command="{Binding CloseAppCommand}"/>
             </MenuItem>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="23.731"/>
+                <ColumnDefinition Width="223.269"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -31,7 +30,7 @@
 
             <!--Location data-->
 
-            <Grid Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" >
+            <Grid Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Grid.ColumnSpan="2" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*"/>
@@ -107,8 +106,8 @@
                 />
             </Grid>
 
-                <!--Location list-->
-            <Grid Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" >
+            <!--Location list-->
+            <Grid Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -125,9 +124,9 @@
                         <Label Grid.Column="1" VerticalAlignment="Center">Søg:</Label>
                         <TextBox Grid.Column="1" MinWidth="100" Text="{Binding Path=CurrentSearchString, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </WrapPanel>
-                    
+
                 </Grid>
-                
+
                 <DataGrid ItemsSource="{Binding Path=CurrentLocations, IsAsync=True}"
                           SelectedItem="{Binding Path=CurrentLocation}"
                           SelectedIndex="{Binding Path=CurrentLocationIndex}"
@@ -152,7 +151,7 @@
             </Grid>
 
             <!--Trees list-->
-            <Grid Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" >
+            <Grid Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -179,10 +178,10 @@
                 </DataGrid>
             </Grid>
 
-            <Button Grid.Column="0" Grid.Row="1" Content="Tilføj Lokation"  x:Name="addLokationButton" ToolTip="Tilføj Lokation" HorizontalAlignment="Left" Command="{Binding Path=AddNewLocationCommand}"  Height="30"/>
-
-                
+<Button Grid.Column="0" Grid.Row="1" Content="Tilføj Lokation"  x:Name="addLokationButton" ToolTip="Tilføj Lokation" HorizontalAlignment="Left" Command="{Binding Path=AddNewLocationCommand}"  Height="30" Grid.ColumnSpan="2" Margin="0,86,0,85"/>
+            <Button Grid.Column="1" Grid.Row="1" Content="Fjern Lokation"  x:Name="deleteLokationButton" ToolTip="Fjern Lokation" HorizontalAlignment="Left" Command="{Binding Path=DeleteLocationCommand}"  Height="30" Margin="60.269,86,0,85"/>
+            <Button Grid.Column="1" Grid.Row="1" Content="Tilføj Trætype"  x:Name="addTreeTypeButton" ToolTip="Tilføj Trætype til lokation" HorizontalAlignment="Left" Command="{Binding Path=AddTreeToLocationCommand}"  Height="30" Margin="130.269,86,0,85"/>
         </Grid>
     </DockPanel>
-        
+
 </Window>

@@ -40,7 +40,7 @@ namespace GUIEksamenWpf
 
 
 
-        #region SearchProå
+        #region SearchProp
 
         private string currentSearchString;
 
@@ -57,8 +57,16 @@ namespace GUIEksamenWpf
         }
         private ObservableCollection<Location> currentLocations;
         public ObservableCollection<Location> CurrentLocations {
-            get { return currentLocations; }
-            set { SetProperty(ref currentLocations, value); }
+            get
+            {
+                
+                return currentLocations;
+            }
+            set
+            {
+                SetProperty(ref currentLocations, value);
+                
+            }
 
         }
 
@@ -214,6 +222,49 @@ namespace GUIEksamenWpf
 
         #endregion
 
+        #region DeleteLocation
+
+        private ICommand _deleteLocationCommand;
+        public ICommand DeleteLocationCommand {
+            get { return _deleteLocationCommand ?? (_deleteLocationCommand = new DelegateCommand(() =>
+            {
+                _repository.DeleteLocation(CurrentLocation);
+                RaisePropertyChanged("CurrentLocations");
+                CurrentSearchString = "";
+
+            })); }
+        }
+
+
+        #endregion
+
+
+        #region AddTreeToLocRegion
+
+        private ICommand addTreeToLocationCommand;
+        public ICommand  AddTreeToLocationCommand{
+            get { return addTreeToLocationCommand ?? (addTreeToLocationCommand = new DelegateCommand(() =>
+            {
+                TreeTypeToMeasure createTreeTypeToMeasure = new TreeTypeToMeasure();
+                var vm = new AddTreeToLocationViewModel(createTreeTypeToMeasure);
+                AddTreeToLocationWindow amw = new AddTreeToLocationWindow()
+                {
+                    DataContext = vm,
+                    Owner = Application.Current.MainWindow.Owner
+                };
+                if (amw.ShowDialog() == true)
+                {
+                    vm.TreeTypeToMeasure.LocationId = CurrentLocation.Id;
+
+                    _repository.InsertTreeTypeToMeasure(vm.TreeTypeToMeasure);
+                    RaisePropertyChanged("Trees");
+                }
+
+            })); }
+        }
+
+        #endregion
+
 
         #region Save_Open
 
@@ -280,35 +331,7 @@ namespace GUIEksamenWpf
             return (fileName != "");
         }
 
-        /*
-        ICommand _NewFileCommand;
-        public ICommand NewFileCommand
-        {
-            get { return _NewFileCommand ?? (_NewFileCommand = new DelegateCommand(NewFileCommand_Execute)); }
-        }
-
-        private void NewFileCommand_Execute()
-        {
-            MessageBoxResult res = MessageBox.Show("Any unsaved data will be lost. Are you sure you want to initiate a new file?", "Warning",
-                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if (res == MessageBoxResult.Yes)
-            {
-                VarroEntries.Clear();
-                EntryIds = new ObservableCollection<string>
-                {
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5"
-                };
-                filterEntryIds.Clear();
-                filterEntryIds.Add("All");
-                filterEntryIds.AddRange(EntryIds);
-                filename = "";
-            }
-        }
-        */
+       
 
         
         ICommand _OpenFileCommand;

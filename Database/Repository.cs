@@ -68,6 +68,16 @@ namespace Database
             }
         }
 
+        public void DeleteLocation(Location location)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                context.Locations.Remove(location);
+                context.SaveChanges();
+
+            }
+        }
+
 
         #endregion
 
