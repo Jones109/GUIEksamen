@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUIEksamenWpf.Windows
+namespace GUIEksamenWpf.Views
 {
     /// <summary>
-    /// Interaction logic for EmployeeView.xaml
+    /// Interaction logic for AddLocationWindow.xaml
     /// </summary>
-    public partial class EmployeeView : UserControl
+    public partial class AddLocationWindow : Window
     {
-        public EmployeeView()
+        public AddLocationWindow()
         {
             InitializeComponent();
         }

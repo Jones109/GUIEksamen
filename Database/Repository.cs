@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -33,5 +37,117 @@ namespace Database
                 return context.Database.EnsureCreated();
             }
         }
+
+
+
+        #region Location
+        public ObservableCollection<Location> GetAllLocations()
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                return new ObservableCollection<Location>(context.Locations.ToList());
+            }
+        }
+
+        public void InsertLocation(Location location)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+               context.Locations.Add(location);
+               context.SaveChanges();
+            }
+        }
+
+        public void InsertLocationRange(ObservableCollection<Location> locations)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                context.Locations.AddRange(locations);
+                context.SaveChanges();
+               
+            }
+        }
+
+
+        #endregion
+
+        #region Sensor
+        public ObservableCollection<Sensor> GetAllSensors()
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                return new ObservableCollection<Sensor>(context.Sensors.ToList());
+            }
+        }
+
+        public void InsertSensor(Sensor sensor)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                context.Sensors.Add(sensor);
+                context.SaveChanges();
+            }
+
+        }
+
+        public void InsertSensorRange(ObservableCollection<Sensor> sensors)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                context.Sensors.AddRange(sensors);
+                context.SaveChanges();
+            }
+        }
+
+
+        public ObservableCollection<Sensor> GetSensorsByLocationId(int id)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                return new ObservableCollection<Sensor>(context.Sensors.Where(x => x.LocationId == id).ToList());
+            }
+        }
+
+
+        #endregion
+
+        #region TreeTypeToMeasure
+        public ObservableCollection<TreeTypeToMeasure> GetAllTreeTypeToMeasure()
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                return new ObservableCollection<TreeTypeToMeasure>(context.TreeTypesToMeasure.ToList());
+            }
+        }
+
+        public async Task<ObservableCollection<TreeTypeToMeasure>> GetAllTreesForLocation(int locationId)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                return new ObservableCollection<TreeTypeToMeasure>(await context.TreeTypesToMeasure.Where(x=>x.LocationId==locationId).ToListAsync());
+            }
+        }
+
+
+
+        public void InsertTreeTypeToMeasure(TreeTypeToMeasure tt)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                context.TreeTypesToMeasure.Add(tt);
+                context.SaveChanges();
+            }
+        }
+
+        public void InsertTreeTypeToMeasureRange(ObservableCollection<TreeTypeToMeasure> trees)
+        {
+            using (var context = new AppDbContext(_options))
+            {
+                context.TreeTypesToMeasure.AddRange(trees);
+                context.SaveChanges();
+            }
+        }
+
+        #endregion
     }
 }

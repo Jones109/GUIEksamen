@@ -1,0 +1,60 @@
+﻿<Window x:Class="GUIEksamenWpf.Views.AddTreeToLocationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUIEksamenWpf.Views"
+        mc:Ignorable="d"
+        Title="AddTreeToLocationWindow" Height="223.256" Width="381.395">
+    <DockPanel Name ="dockPanelMain">
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+            <Label Margin="0,0,0,0" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">Trætype</Label>
+            <Label Margin="0,0,0,0" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">Antal</Label>
+
+
+            <TextBox Margin="0,0,0,0"
+                         Name="tbxType"
+                         Text="{Binding Path=TreeTypeToMeasure.TreeType}"
+                         VerticalAlignment="Center" 
+                         HorizontalAlignment="center" 
+                         Grid.Column="1"
+                         Grid.Row="0"
+                         MinWidth="100"
+                />
+            <TextBox Margin="0,0,0,0"
+                         Name="tbxCount" 
+                         Text="{Binding Path=TreeTypeToMeasure.Count}"
+                         VerticalAlignment="Center" 
+                         HorizontalAlignment="center" 
+                         Grid.Column="1"
+                         Grid.Row="1"
+                         MinWidth="100"
+                />
+
+
+
+            <Grid Grid.Row="7" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="applyButton" HorizontalAlignment="Center" Click="ButtonBase_OnClick"  Content="Tilføj" Grid.Column="0" BorderThickness="2"/>
+                <Button x:Name="closeButton" HorizontalAlignment="Center" Content="Luk" IsCancel="true" Grid.Column="1"/>
+            </Grid>
+
+
+
+        </Grid>
+
+    </DockPanel>
+</Window>

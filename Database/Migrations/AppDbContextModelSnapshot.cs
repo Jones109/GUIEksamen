@@ -70,6 +70,76 @@ namespace Database.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Database.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Street")
+                        .IsRequired();
+
+                    b.Property<string>("StreetNumber")
+                        .IsRequired();
+
+                    b.Property<int>("ZipCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("Database.Models.Sensor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("GpsLat");
+
+                    b.Property<double>("GpsLon");
+
+                    b.Property<int>("LocationId");
+
+                    b.Property<string>("SensorId")
+                        .IsRequired();
+
+                    b.Property<string>("TreeType")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Sensors");
+                });
+
+            modelBuilder.Entity("Database.Models.TreeTypeToMeasure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count");
+
+                    b.Property<int>("LocationId");
+
+                    b.Property<string>("TreeType")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("TreeTypesToMeasure");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -178,6 +248,22 @@ namespace Database.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Database.Models.Sensor", b =>
+                {
+                    b.HasOne("Database.Models.Location", "Location")
+                        .WithMany("Sensors")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Database.Models.TreeTypeToMeasure", b =>
+                {
+                    b.HasOne("Database.Models.Location", "Location")
+                        .WithMany("TreeTypesToMeasure")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

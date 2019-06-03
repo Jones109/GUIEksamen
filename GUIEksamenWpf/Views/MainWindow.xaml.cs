@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUIEksamenWpf.Windows
+namespace GUIEksamenWpf
 {
     /// <summary>
-    /// Interaction logic for DepartmentView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class DepartmentView : UserControl
+    public partial class MainWindow : Window
     {
-        public DepartmentView()
+        public MainWindow()
         {
             InitializeComponent();
         }

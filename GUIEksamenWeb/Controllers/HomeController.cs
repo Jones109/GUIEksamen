@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Database;
+using Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using GUIEksamenWeb.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis;
 
 namespace GUIEksamenWeb.Controllers
 {
@@ -29,15 +31,33 @@ namespace GUIEksamenWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_repository.GetAllLocations());
         }
 
-        public IActionResult Privacy()
+
+        public IActionResult AddSensorToLocationView(int Id)
         {
-            return View();
+            Sensor newSensor = new Sensor
+            {
+                LocationId = Id
+            };
+            return View(newSensor);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult AddSensorToLocation(Sensor sensor)
+        {
+
+            _repository.InsertSensor(sensor);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Sensors(int id)
+        {
+            return View(_repository.GetSensorsByLocationId(id));
+        }
+
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
