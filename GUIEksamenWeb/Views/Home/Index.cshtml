@@ -9,6 +9,19 @@
     ViewData["Title"] = "ListLocations";
 }
 
+<div>
+    <form asp-controller="Home" asp-action="Search" onsubmit="return getSearchText()">
+        <input type="submit" value="Search" />
+        <input type="text" id="searchText" name="searchText" />
+    </form>
+</div>
+
+<script>
+    function getSearchText() {
+        return document.getElementById("searchText").value;
+    }
+</script>
+
 @if (SignInManager.IsSignedIn(User))
 {
     <table class="table">
@@ -52,7 +65,7 @@
                         @Html.DisplayFor(modelItem => item.City)
                     </td>
                     <td>
-                        <a asp-action="AddSensorToLocationView" asp-route-id="@item.Id">Tilføj sensor</a>|
+                        <a asp-action="AddSensorToLocation" asp-route-id="@item.Id" >Tilføj sensor</a>|
                         <a asp-action="Sensors" asp-route-id="@item.Id">Se sensorer</a>
 
                     </td>
