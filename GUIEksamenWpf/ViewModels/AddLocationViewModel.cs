@@ -110,8 +110,18 @@ namespace GUIEksamenWpf.ViewModels
                     };
                     if (amw.ShowDialog() == true)
                     {
-                        _newTreeTypeToMeasures.Add(vm.TreeTypeToMeasure);
-                        RaisePropertyChanged("NewTreeTypeToMeasures");
+                        if (!(vm.TreeTypeToMeasure.Count == 0 || vm.TreeTypeToMeasure.TreeType == null))
+                        {
+                            _newTreeTypeToMeasures.Add(vm.TreeTypeToMeasure);
+                            RaisePropertyChanged("NewTreeTypeToMeasures");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Alle felter skal udfyldes", "Fejl", MessageBoxButton.OK);
+                        }
+
+                       
+                        
                     }
                 }));
             }

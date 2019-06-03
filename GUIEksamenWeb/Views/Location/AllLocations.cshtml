@@ -1,0 +1,83 @@
+﻿@using Database
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Database.Models.Location>
+@inject SignInManager<AppUser> SignInManager
+
+@{
+    ViewData["Title"] = "AllLocations";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <div > 
+        <form asp-controller="Location" asp-action="Search" onsubmit="return getSearchText()">
+            <input type="submit" value="Search" />
+            <input type="text" id="searchText" name="searchText" />
+        </form>
+        <a class="text-dark" asp-controller="Location" asp-action="AllLocations">Se alle lokationer</a>
+    </div>
+
+
+    <script>
+        function getSearchText() {
+            return document.getElementById("searchText").value;
+        }
+    </script>
+    <div class='bg-items'>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Street)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StreetNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ZipCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Street)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StreetNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            <a class="text-dark" asp-controller="Sensor" asp-action="AddSensorToLocation" asp-route-locId="@item.Id">Tilføj sensor</a>|
+                            <a class="text-dark" asp-controller="Sensor" asp-action="SensorsByLocationId" asp-route-locId="@item.Id">Se sensorer</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>Login eller registrer dig for at se lokationer</p>
+}

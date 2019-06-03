@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUIEksamenWpf.Views"
         mc:Ignorable="d"
-        Title="AddTreeToLocationWindow" Height="223.256" Width="381.395">
+        Title="Tilføj Trætype" Height="149.656" Width="222.995" Background="{StaticResource ResourceKey=BackgroundBrush}">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Setter Property="Background" Value="{StaticResource ResourceKey=BackgroundBrush}" />
+        </Style>
+        <Style TargetType="{x:Type Label}" >
+            <Setter Property="Foreground" Value="{StaticResource ResourceKey=ForegroundBrush}" />
+        </Style>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="{StaticResource ResourceKey=BackgroundBrush}" />
+            <Setter Property="FontStyle" Value="Oblique" />
+        </Style>
+
+    </Window.Resources>
     <DockPanel Name ="dockPanelMain">
         <Grid Grid.Column="0" Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -15,7 +28,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.7*"/>
 
             </Grid.RowDefinitions>
             <Label Margin="0,0,0,0" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">Trætype</Label>
@@ -48,8 +61,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="applyButton" HorizontalAlignment="Center" Click="ButtonBase_OnClick"  Content="Tilføj" Grid.Column="0" BorderThickness="2"/>
-                <Button x:Name="closeButton" HorizontalAlignment="Center" Content="Luk" IsCancel="true" Grid.Column="1"/>
+                <Button x:Name="applyButton" VerticalAlignment="Center" HorizontalAlignment="Center" Click="ButtonBase_OnClick"  Content="Tilføj" Grid.Column="0"  MinWidth="60" BorderThickness="2"/>
+                <Button x:Name="closeButton" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Luk" IsCancel="true" Grid.Column="1" MinWidth="60"/>
             </Grid>
 
 

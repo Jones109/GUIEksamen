@@ -5,6 +5,7 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+ 
 }
 
 /* Sticky footer styles
@@ -16,6 +17,16 @@ html {
   html {
     font-size: 16px;
   }
+}
+body {
+    Background-image:url(/Images/Tree.jpg);
+    Background-size:cover
+}
+
+.bg-items {
+    background: #ffffffe6;
+    border-radius: 20px;
+    margin: 10px 0px;
 }
 
 .border-top {

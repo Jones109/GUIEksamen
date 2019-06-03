@@ -31,36 +31,11 @@ namespace GUIEksamenWeb.Controllers
 
         public IActionResult Index()
         {
-            return View(_repository.GetAllLocations());
-        }
-
-
-        public IActionResult AddSensorToLocation(int id)
-        {
-
-
-            return View(new Sensor{LocationId = id});
-        }
-
-        public IActionResult AddSensorToLocationSubmit(Sensor sensor)
-        {
-
-            _repository.InsertSensor(sensor);
-
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Search(string searchText)
-        {
-            return View("Index", _repository.GetAllLocations().Where(x=>x.Name.Contains(searchText)));
+            return RedirectToAction("AllLocations", "Location");
         }
 
 
 
-        public IActionResult Sensors(int id)
-        {
-            return View(_repository.GetSensorsByLocationId(id));
-        }
 
 
         public IActionResult Error()

@@ -194,18 +194,26 @@ namespace GUIEksamenWpf
 
         private void addModelApply(object sender, EventArgs e)
         {
-
-            _repository.InsertLocation(locationViewModel.NewLocation);
-            foreach (var tree in locationViewModel.NewTreeTypeToMeasures)
+            if (!(locationViewModel.NewLocation.City==null|| locationViewModel.NewLocation.Name==null|| locationViewModel.NewLocation.Street==null|| locationViewModel.NewLocation.StreetNumber==null|| locationViewModel.NewLocation.ZipCode==0))
             {
-                tree.LocationId = locationViewModel.NewLocation.Id;
-                _repository.InsertTreeTypeToMeasure(tree);
+                _repository.InsertLocation(locationViewModel.NewLocation);
+                foreach (var tree in locationViewModel.NewTreeTypeToMeasures)
+                {
+                    tree.LocationId = locationViewModel.NewLocation.Id;
+                    _repository.InsertTreeTypeToMeasure(tree);
+                }
+
+
+                RaisePropertyChanged("Locations");
+                RaisePropertyChanged("Trees");
+                CurrentSearchString = "";
+            }
+            else
+            {
+                MessageBox.Show("Alle felter skal udfyldes", "Fejl", MessageBoxButton.OK);
             }
 
-           
-            RaisePropertyChanged("Locations");
-            RaisePropertyChanged("Trees");
-            CurrentSearchString = "";
+
             locationWindow.Close();
 
         }
@@ -254,10 +262,19 @@ namespace GUIEksamenWpf
                 };
                 if (amw.ShowDialog() == true)
                 {
-                    vm.TreeTypeToMeasure.LocationId = CurrentLocation.Id;
+                    if (!(vm.TreeTypeToMeasure.Count==0||vm.TreeTypeToMeasure.TreeType==null))
+                    {
+                        vm.TreeTypeToMeasure.LocationId = CurrentLocation.Id;
 
-                    _repository.InsertTreeTypeToMeasure(vm.TreeTypeToMeasure);
-                    RaisePropertyChanged("Trees");
+                        _repository.InsertTreeTypeToMeasure(vm.TreeTypeToMeasure);
+                        RaisePropertyChanged("Trees");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Alle felter skal udfyldes", "Fejl", MessageBoxButton.OK);
+
+                    }
+
                 }
 
             })); }
