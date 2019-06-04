@@ -26,7 +26,11 @@ namespace GUIEksamenWeb.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _repository = new Repository();
-            _repository.CreateDB();
+            bool result = _repository.CreateDB();
+            if (result)
+            {
+                _repository.SeedData();
+            }
         }
 
         public IActionResult Index()

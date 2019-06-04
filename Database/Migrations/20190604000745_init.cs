@@ -174,17 +174,16 @@ namespace Database.Migrations
                 name: "Sensors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SensorId = table.Column<string>(maxLength: 16, nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     TreeType = table.Column<string>(nullable: false),
-                    SensorId = table.Column<string>(nullable: false),
                     GpsLat = table.Column<double>(nullable: false),
                     GpsLon = table.Column<double>(nullable: false),
                     LocationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sensors", x => x.Id);
+                    table.PrimaryKey("PK_Sensors", x => x.SensorId);
                     table.ForeignKey(
                         name: "FK_Sensors_Locations_LocationId",
                         column: x => x.LocationId,

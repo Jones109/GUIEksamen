@@ -20,6 +20,7 @@ namespace Database.Models
         [MaxLength(16)]
         [RegularExpression("[0-9a-fA-F]+",
             ErrorMessage = "Skal være hexadecimal")]
+        [Key]
         public string SensorId { get; set; }
         [Required]
         [DisplayName("Latitude")]

@@ -32,7 +32,11 @@ namespace GUIEksamenWpf
         public MainWindowViewModel()
         {
             _repository = new Repository();
-            _repository.CreateDB();
+            bool result = _repository.CreateDB();
+            if (result)
+            {
+                _repository.SeedData();
+            }
             CurrentSearchString = "";
 
         }
@@ -50,7 +54,7 @@ namespace GUIEksamenWpf
             set
             {
                 SetProperty(ref currentSearchString, value);
-                CurrentLocations = new ObservableCollection<Location>(Locations.Where(x=>x.Name.StartsWith(CurrentSearchString)));
+                CurrentLocations = new ObservableCollection<Location>(Locations.Where(x=>x.Name.ToLower().StartsWith(CurrentSearchString.ToLower())));
                 RaisePropertyChanged("CurrentLocations");
                     
             }

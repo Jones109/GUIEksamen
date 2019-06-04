@@ -97,23 +97,22 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Models.Sensor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("SensorId")
                         .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasMaxLength(16);
 
                     b.Property<double>("GpsLat");
 
                     b.Property<double>("GpsLon");
 
-                    b.Property<int>("LocationId");
+                    b.Property<int>("Id");
 
-                    b.Property<string>("SensorId")
-                        .IsRequired();
+                    b.Property<int>("LocationId");
 
                     b.Property<string>("TreeType")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("SensorId");
 
                     b.HasIndex("LocationId");
 
